@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Design tokens: academic + Catholic aesthetic (light theme only) */
+:root {
+  --paper: #f7f2e8;
+  --paper-muted: #efe8dc;
+  --ink: #3d2914;
+  --ink-muted: #5c4a38;
+  --st-joseph: #002855;
+  --gold: #d1bd71;
+  --gold-hover: #b8a35a;
+  --silver: #e5e1e6;
+  --silver-border: #cfc8d2;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-muted: var(--paper-muted);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-st-joseph: var(--st-joseph);
+  --color-gold: var(--gold);
+  --color-gold-hover: var(--gold-hover);
+  --color-silver: var(--silver);
+  --font-sans: var(--font-lato);
+  --font-serif: var(--font-merriweather);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-merriweather), ui-serif, Georgia, serif;
+}
+
+/* Reading anchors: offset for sticky header */
+article.prose-article h2,
+article.prose-article h3 {
+  scroll-margin-top: 6rem;
+}
+
+/* Blockquote: gold rail + silver fill (outside prose defaults) */
+article.prose-article blockquote.academic-quote {
+  border-left-width: 4px;
+  border-left-color: var(--gold);
+  background-color: var(--silver);
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  font-style: italic;
+  color: var(--ink);
+}
+
+article.prose-article blockquote.academic-quote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9em;
+  font-style: normal;
+  color: var(--ink-muted);
+}
+
+/* Tables: readable on cream paper */
+article.prose-article table.data-table {
+  width: 100%;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+}
+
+article.prose-article table.data-table th,
+article.prose-article table.data-table td {
+  border: 1px solid var(--silver-border);
+  padding: 0.65rem 0.75rem;
+  vertical-align: top;
+}
+
+article.prose-article table.data-table th {
+  background-color: var(--silver);
+  color: var(--st-joseph);
+  font-family: var(--font-lato), system-ui, sans-serif;
+  font-weight: 600;
+  text-align: left;
+}
+
+article.prose-article table.data-table tr:nth-child(even) td {
+  background-color: color-mix(in srgb, var(--paper-muted) 60%, transparent);
+}
+
+/* Footnote links */
+article.prose-article sup.ref a {
+  color: var(--gold-hover);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+article.prose-article sup.ref a:hover {
+  color: var(--st-joseph);
+}
+
+/* Fade-in when scrolling (respect reduced motion in component) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
