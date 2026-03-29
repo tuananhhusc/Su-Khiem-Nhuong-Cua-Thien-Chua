@@ -24,7 +24,11 @@ export function ReadingChrome() {
   useEffect(() => {
     const initialScale = readScale();
     if (initialScale !== fontScale) {
-      setFontScale(initialScale);
+      // Async call to avoid synchronous cascading renders
+      const timer = setTimeout(() => {
+        setFontScale(initialScale);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [fontScale]);
 
