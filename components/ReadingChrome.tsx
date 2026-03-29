@@ -22,8 +22,11 @@ export function ReadingChrome() {
   const [focusMode, setFocusMode] = useState(false);
 
   useEffect(() => {
-    setFontScale(readScale());
-  }, []);
+    const initialScale = readScale();
+    if (initialScale !== fontScale) {
+      setFontScale(initialScale);
+    }
+  }, [fontScale]);
 
   useEffect(() => {
     document.documentElement.dataset.fontScale = fontScale;

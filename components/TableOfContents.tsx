@@ -1,6 +1,5 @@
 "use client";
 
-import { List, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TocItem } from "@/lib/toc-items";
 

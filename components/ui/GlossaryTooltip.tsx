@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { glossaryData } from "@/lib/glossary-data";
 import { AnimatePresence, motion } from "framer-motion";
 
