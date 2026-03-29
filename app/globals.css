@@ -263,23 +263,34 @@ article.prose-article sup.ref a:hover {
 }
 
 /* Cỡ chữ bài (ReadingChrome đặt data-font-scale trên <html>) */
+article.prose-article {
+  font-size: 1.05rem;
+  transition: font-size 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+  article.prose-article {
+    font-size: 1.1rem;
+  }
+}
+
 html[data-font-scale="sm"] article.prose-article {
-  font-size: 0.98rem;
+  font-size: 0.9rem;
 }
 
 @media (min-width: 1024px) {
   html[data-font-scale="sm"] article.prose-article {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 }
 
 html[data-font-scale="lg"] article.prose-article {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
 }
 
 @media (min-width: 1024px) {
   html[data-font-scale="lg"] article.prose-article {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
   }
 }
 

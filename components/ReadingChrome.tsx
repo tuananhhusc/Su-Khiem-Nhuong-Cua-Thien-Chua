@@ -21,16 +21,16 @@ export function ReadingChrome() {
   const [fontScale, setFontScale] = useState<FontScale>("md");
   const [focusMode, setFocusMode] = useState(false);
 
+  // 1. Đồng bộ từ LocalStorage khi mount (Chỉ chạy 1 lần)
   useEffect(() => {
-    const initialScale = readScale();
-    if (initialScale !== fontScale) {
-      // Async call to avoid synchronous cascading renders
+    const saved = readScale();
+    if (saved !== "md") {
       const timer = setTimeout(() => {
-        setFontScale(initialScale);
+        setFontScale(saved);
       }, 0);
       return () => clearTimeout(timer);
     }
-  }, [fontScale]);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.fontScale = fontScale;
