@@ -12,6 +12,9 @@
   --gold-hover: #b8a35a;
   --silver: #e5e1e6;
   --silver-border: #cfc8d2;
+  font-variant-ligatures: common-ligatures;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
 }
 
 @theme inline {
@@ -22,9 +25,15 @@
   --color-st-joseph: var(--st-joseph);
   --color-gold: var(--gold);
   --color-gold-hover: var(--gold-hover);
+  --color-foreground: var(--ink);
   --color-silver: var(--silver);
-  --font-sans: var(--font-lato);
-  --font-serif: var(--font-merriweather);
+  --color-silver-border: var(--silver-border);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+
+  /* Academic Accents */
+  --academic-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --academic-ring: color-mix(in srgb, var(--gold) 35%, transparent);
 }
 
 html {
@@ -39,24 +48,150 @@ html {
 
 body {
   background-color: var(--paper);
+  background-image: 
+    radial-gradient(at 0% 0%, color-mix(in srgb, var(--paper-muted) 25%, transparent) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, color-mix(in srgb, var(--paper-muted) 25%, transparent) 0px, transparent 50%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04' /%3E%3C/svg%3E");
   color: var(--ink);
-  font-family: var(--font-merriweather), ui-serif, Georgia, serif;
+  font-family: var(--font-serif), "EB Garamond", "Noto Serif", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "pnum" 1;
+}
+
+@media (max-width: 1024px) {
+  body {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03' /%3E%3C/svg%3E");
+  }
+}
+
+/* Khung đọc học thuật — dễ đọc tiếng Việt (dấu, từ dài) */
+article.prose-article {
+  font-feature-settings:
+    "kern" 1,
+    "liga" 1,
+    "onum" 1,
+    "pnum" 1,
+    "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+p {
+  text-wrap: pretty;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  line-height: 1.8;
+  letter-spacing: 0.015em;
+}
+
+@media (max-width: 640px) {
+  article.prose-article p {
+    text-align: start;
+    text-justify: auto;
+    hyphens: manual;
+  }
+}
+
+article.prose-article h2 {
+  font-family: var(--font-serif), serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  border-bottom: 2px double color-mix(in srgb, var(--gold) 40%, var(--silver-border));
+  padding-bottom: 0.5em;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  color: var(--st-joseph);
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "pnum" 1;
+}
+
+article.prose-article h3 {
+  font-family: var(--font-serif), serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  color: color-mix(in srgb, var(--st-joseph) 85%, black);
+  border-left: 3px solid var(--gold);
+  padding-left: 1rem;
+}
+
+/* --- Duy trì nhịp điệu đọc cho mobile --- */
+@media (max-width: 640px) {
+  article.prose-article h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+  }
+  article.prose-article h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+article.prose-article ul {
+  padding-inline-start: 1.5em;
+  list-style-type: square;
+}
+
+article.prose-article li {
+  padding-inline-start: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 /* Reading anchors: offset for sticky header */
 article.prose-article h2,
 article.prose-article h3 {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: 7rem;
 }
 
-/* Blockquote: gold rail + silver fill (outside prose defaults) */
+.font-small-caps {
+  font-variant: all-small-caps;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+/* Sidenote support (for large screens) */
+@media (min-width: 1440px) {
+  .sidenote-container {
+    position: absolute;
+    right: -24rem;
+    width: 20rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    font-style: italic;
+    border-left: 1px solid var(--gold);
+    padding-left: 1rem;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+/* Blockquote: gold rail + silver fill */
 article.prose-article blockquote.academic-quote {
   border-left-width: 4px;
   border-left-color: var(--gold);
-  background-color: var(--silver);
-  padding: 1rem 1.25rem 1rem 1.5rem;
+  background-color: color-mix(in srgb, var(--paper-muted) 40%, transparent);
+  padding: 1.25rem 1.5rem 1.25rem 2rem;
   font-style: italic;
+  font-size: 1.05em;
+  line-height: 1.75;
   color: var(--ink);
+  text-align: justify;
+  margin-left: 0;
+  margin-right: 0;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
 }
 
 article.prose-article blockquote.academic-quote cite {
@@ -84,7 +219,7 @@ article.prose-article table.data-table td {
 article.prose-article table.data-table th {
   background-color: var(--silver);
   color: var(--st-joseph);
-  font-family: var(--font-lato), system-ui, sans-serif;
+  font-family: var(--font-source-sans), system-ui, sans-serif;
   font-weight: 600;
   text-align: left;
 }
@@ -125,4 +260,94 @@ article.prose-article sup.ref a:hover {
     transform: none;
     transition: none;
   }
+}
+
+/* Cỡ chữ bài (ReadingChrome đặt data-font-scale trên <html>) */
+html[data-font-scale="sm"] article.prose-article {
+  font-size: 0.98rem;
+}
+
+@media (min-width: 1024px) {
+  html[data-font-scale="sm"] article.prose-article {
+    font-size: 1rem;
+  }
+}
+
+html[data-font-scale="lg"] article.prose-article {
+  font-size: 1.125rem;
+}
+
+@media (min-width: 1024px) {
+  html[data-font-scale="lg"] article.prose-article {
+    font-size: 1.15rem;
+  }
+}
+
+/* Trích Kinh Thánh — phân biệt trực quan với trích khác */
+article.prose-article blockquote.scripture-quote {
+  border-left-color: var(--st-joseph);
+  background-color: color-mix(in srgb, var(--st-joseph) 6%, var(--paper-muted));
+}
+
+article.prose-article blockquote.scripture-quote cite {
+  font-variant: normal;
+  font-style: normal;
+}
+
+/* In ấn */
+@media print {
+  .skip-link,
+  .fixed {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: #1a1a1a !important;
+  }
+
+  article.prose-article {
+    max-width: 100% !important;
+    font-size: 11pt !important;
+    line-height: 1.55 !important;
+  }
+
+  article.prose-article p {
+    text-align: justify;
+  }
+
+  article.prose-article a {
+    color: inherit !important;
+    text-decoration: underline;
+  }
+
+  article.prose-article h2,
+  article.prose-article h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  table.data-table {
+    break-inside: avoid;
+  }
+}
+
+/* Custom Scrollbar for Scholarly feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--silver-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+::selection {
+  background-color: var(--gold);
+  color: var(--st-joseph);
 }
