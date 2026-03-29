@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Sự khiêm nhường của Thiên Chúa — Báo Cáo Nghiên Cứu Chuyên Sâu";
+export const dynamic = "force-static";
+
+export const alt = "Sự Khiêm Nhường Của Thiên Chúa — Báo Cáo Nghiên Cứu Chuyên Sâu";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -58,7 +60,7 @@ export default function OpenGraphImage() {
               fontStyle: "italic",
             }}
           >
-            Sự khiêm nhường của Thiên Chúa
+            Sự Khiêm Nhường Của Thiên Chúa
           </p>
           
           <p style={{ fontSize: 28, color: "#3d2914", margin: 0, lineHeight: 1.45, fontWeight: 500 }}>
@@ -68,7 +70,7 @@ export default function OpenGraphImage() {
           <div style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ fontSize: 32, color: "#d1bd71" }}>❧</div>
             <p style={{ fontSize: 20, color: "#5c4a38", margin: 0, letterSpacing: "0.1em" }}>
-              RESEARCH REPORRT 2026
+              RESEARCH REPORT 2026
             </p>
           </div>
         </div>
